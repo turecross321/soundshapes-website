@@ -10,5 +10,5 @@ pnpm dev
 ```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Note: This also requires an instance of [turecross321/SoundShapesServer](https://github.com/turecross321/SoundShapesServer) to do anything.
+Note: This also requires a running instance of [turecross321/SoundShapesServer](https://github.com/turecross321/SoundShapesServer) at localhost:10061 to do anything.
 
