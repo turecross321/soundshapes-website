@@ -57,7 +57,7 @@ const SetEmailPage: FC<EmailPageProps> = ({ setEmailCallback }) => {
   };
 
   return (
-    <div className="w-80">
+    <div className="w-auto">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <input
