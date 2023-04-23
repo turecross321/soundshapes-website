@@ -16,6 +16,7 @@ import {
 } from "@/api/types/ip-authorization-responses";
 import EnforceAuthentication from "@/components/enforce-authentication";
 import { AuthenticationResponse } from "@/api/types/authentication-responses";
+import Divider from "@/components/divider";
 
 async function RefreshAuthed(user: AuthenticationResponse, router: NextRouter) {
   let authed = await GetAuthorizedIpAddresses();
@@ -138,14 +139,14 @@ const Authorization: FC<AuthorizationProps> = ({}) => {
 
   return (
     <EnforceAuthentication shouldBeAuthenticated={true}>
-      <div className="w-auto content content-padding">
+      <div className="content content-padding">
         <h1 className="text-5xl font-bold text-center mb-2">Authorization</h1>
 
         <div>
           <h2 className="text-2xl mb-2">Allowed</h2>
         </div>
 
-        <div className="border-t border-gray-300 my-1 border-opacity-20 mb-2 mt-2" />
+        <Divider />
 
         {authorizedIps
           ? authorizedIps.map((ip) => (
@@ -157,13 +158,13 @@ const Authorization: FC<AuthorizationProps> = ({}) => {
             ))
           : null}
 
-        <div className="border-t border-gray-300 my-1 border-opacity-20 mb-2 mt-4" />
+        <Divider />
 
         <div>
           <h2 className="text-2xl mb-2">Requests</h2>
         </div>
 
-        <div className="border-t border-gray-300 my-1 border-opacity-20 mb-2 mt-2" />
+        <Divider />
 
         {unAuthorizedIps
           ? unAuthorizedIps.map((ip) => (
@@ -175,7 +176,7 @@ const Authorization: FC<AuthorizationProps> = ({}) => {
             ))
           : null}
 
-        <div className="border-t border-gray-300 my-1 border-opacity-20 mb-2 mt-4" />
+        <Divider />
       </div>
     </EnforceAuthentication>
   );

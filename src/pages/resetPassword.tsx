@@ -53,7 +53,7 @@ function Page() {
 
   return (
     <EnforceAuthentication shouldBeAuthenticated={false}>
-      <div className="w-auto content content-padding">
+      <div className="content content-padding">
         <h1 className="text-5xl font-bold text-center mb-6">Reset Password</h1>
         <div className="mb-4">
           <Stepper

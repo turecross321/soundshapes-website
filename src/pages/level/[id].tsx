@@ -68,7 +68,7 @@ export default function Page({ level }: IndexPageProps) {
           <div className="content thumbnail-padding mb-1">
             <img
               src={apiUrl + `level/${level.Id}/thumbnail`}
-              className="rounded w-full h-full"
+              className="level-content rounded w-full h-full"
               alt="thumbnail"
             />
           </div>

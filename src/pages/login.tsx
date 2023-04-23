@@ -1,4 +1,5 @@
 import { LogIn } from "@/api/api-authentication";
+import Divider from "@/components/divider";
 import EnforceAuthentication from "@/components/enforce-authentication";
 import SessionProvider, { SessionContext } from "@/contexts/SessionContext";
 import Link from "next/link";
@@ -54,7 +55,7 @@ function Page() {
 
   return (
     <EnforceAuthentication shouldBeAuthenticated={false}>
-      <div className="w-80 content content-padding">
+      <div className="content content-padding">
         <h1 className="text-5xl font-bold text-center mb-6">Login</h1>
 
         <form onSubmit={handleSubmit}>
@@ -107,7 +108,7 @@ function Page() {
           </div>
         </form>
 
-        <div className="border-t border-gray-300 my-1 border-opacity-20" />
+        <Divider />
 
         <div className="flex justify-between">
           <Link

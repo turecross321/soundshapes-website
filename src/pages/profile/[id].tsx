@@ -76,13 +76,13 @@ export default function Page({ userProp, levelsProp }: IndexPageProps) {
     <main className="flex justify-between">
       <div>
         <div className="content content-padding w-auto">
-          <div className="w-80 flex justify-between items-start">
-            <div className="w-56">
+          <div className="flex justify-between items-start">
+            <div>
               <h1 className="text-3xl font-bold break-words">
                 {user.Username}
               </h1>
             </div>
-            <div className="w-full flex justify-end">
+            <div className="w-full flex justify-end ml-2">
               <FollowButton
                 id={user.Id}
                 refreshPage={RefreshPage}
@@ -115,7 +115,7 @@ export default function Page({ userProp, levelsProp }: IndexPageProps) {
         </div>
       </div>
 
-      <div className="ml-1 content content-padding md:block max-xl:hidden">
+      <div className="ml-1 content content-padding md:block max-xl:hidden w-fill">
         {GetCurrentPage()}
       </div>
     </main>

@@ -25,6 +25,8 @@ const Levels: FC<LevelProps> = ({
   const [levels, setLevels] = useState<LevelResponseWrapper>(levelWrapper);
   const [loadedFrom, setLoadedFrom] = useState<number>(0);
 
+  if (levels.Count < 1) return <div></div>;
+
   function NextPage() {
     let page = currentPage + 1;
     setCurrentPage(page);

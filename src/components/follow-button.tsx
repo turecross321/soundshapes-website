@@ -50,7 +50,7 @@ const FollowButton: FC<FollowButtonProps> = ({ id, logOut, refreshPage }) => {
     return (
       <button
         type="submit"
-        className="bg-gray-700 text-white py-2 rounded hover:bg-gray-600 transistion-colors follow-button ml-4"
+        className="bg-gray-700 text-white py-2 rounded hover:bg-gray-600 transistion-colors follow-button"
         onClick={following ? UnFollow : Follow}
       >
         {following ? "Unfollow" : "Follow"}

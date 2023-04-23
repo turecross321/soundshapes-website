@@ -48,7 +48,7 @@ function Page() {
 
   return (
     <EnforceAuthentication shouldBeAuthenticated={false}>
-      <div className="w-80 content content-padding">
+      <div className="content content-padding">
         <h1 className="text-5xl font-bold text-center mb-4">Registration</h1>
         <div className="flex justify-center">
           <Stepper

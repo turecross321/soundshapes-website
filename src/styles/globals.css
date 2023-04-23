@@ -37,11 +37,6 @@ body {
   padding-bottom: 10px;
 }
 
-.button {
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
 .fancy-button {
   @apply bg-gray-700 text-white py-2 rounded hover:bg-gray-600;
   padding-left: 15px;

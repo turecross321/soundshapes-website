@@ -8,7 +8,7 @@ interface NavbarButtonProps {
 
 const NavbarButton: FC<NavbarButtonProps> = ({ url, name }) => {
   return (
-    <div className="button">
+    <div>
       <Link href={url}>{name}</Link>
     </div>
   );
