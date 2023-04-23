@@ -1,5 +1,8 @@
 Website for [turecross321/SoundShapesServer](https://github.com/turecross321/SoundShapesServer)
 
+![image](https://user-images.githubusercontent.com/51852312/233847876-0689dc62-4635-4b3a-8bc0-3e02c5264a59.png)
+
+
 ## Development Server
 ```bash
 npm run dev
