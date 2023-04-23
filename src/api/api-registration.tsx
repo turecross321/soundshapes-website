@@ -23,10 +23,9 @@ export async function SetEmail(authCode: string, email: string) {
     let response = await api.post("setEmail", request, config);
 
     return true;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      ToastError(error.response?.data.Reason ?? "Invalid Authentication Code.");
-    }
+  } catch (error: any) {
+    ToastError(error.response?.data.Reason ?? "The email code is invalid.");
+    console.log(error);
   }
 }
 
@@ -47,10 +46,9 @@ export async function SetPassword(authCode: string, password: string) {
     let response = await api.post("setPassword", request, config);
 
     return true;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      ToastError(error.response?.data.Reason ?? "Invalid Authentication Code.");
-    }
+  } catch (error: any) {
+    ToastError(error.response?.data.Reason ?? "The password code is invalid.");
+    console.log(error);
   }
 }
 
@@ -63,9 +61,8 @@ export async function SendPasswordSessionRequest(email: string) {
     let response = await api.post("sendPasswordSession", request);
 
     return true;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      ToastError("An error has occurred.");
-    }
+  } catch (error: any) {
+    ToastError(error.response?.data.Reason ?? "An error has occurred.");
+    console.log(error);
   }
 }

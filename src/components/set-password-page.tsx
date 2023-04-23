@@ -23,7 +23,8 @@ const SetPasswordPage: FC<PasswordPageProps> = ({
     setAuthCode(filteredStr);
 
     //  only make it valid so it doesnt complain when the user hasn't typed the whole code
-    if (authCodeRegex.test(event.target.value)) setValidAuthCode(true);
+    if (authCodeRegex.test(event.target.value.toUpperCase()))
+      setValidAuthCode(true);
   };
 
   const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,7 +50,6 @@ const SetPasswordPage: FC<PasswordPageProps> = ({
 
     setIsLoading(true);
     let success = await SetPassword(upperCaseAuthCode, password);
-    console.log(upperCaseAuthCode);
     if (success) {
       setPasswordCallback(password);
     } else setIsLoading(false);
@@ -72,7 +72,7 @@ const SetPasswordPage: FC<PasswordPageProps> = ({
           ></input>
           {validAuthCode ? null : (
             <div className="font-bold text-red-600 mt-4">
-              Not a valid authentication code
+              Not a valid password code
             </div>
           )}
         </div>

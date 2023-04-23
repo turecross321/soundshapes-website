@@ -71,7 +71,7 @@ const SetEmailPage: FC<EmailPageProps> = ({ setEmailCallback }) => {
           ></input>
           {validAuthCode ? null : (
             <div className="font-bold text-red-600 mt-4">
-              Not a valid authentication code
+              Not a valid email code
             </div>
           )}
         </div>
