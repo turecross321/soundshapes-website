@@ -12,11 +12,13 @@ const Level: FC<LevelProps> = ({ level }) => {
   return (
     <div className="bg-black rounded-lg level-content bg-opacity-50">
       <div className="mb-2">
-        <img
-          src={apiUrl + `level/${level.Id}/thumbnail`}
-          className="rounded"
-          alt="thumbnail"
-        />
+        <Link href={`/level/${level.Id}`}>
+          <img
+            src={apiUrl + `level/${level.Id}/thumbnail`}
+            className="rounded"
+            alt="thumbnail"
+          />
+        </Link>
       </div>
       <h3 className="text-xl truncate">
         <Link href={`/level/${level.Id}`}>{level.Name} </Link>
