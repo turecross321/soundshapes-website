@@ -33,6 +33,13 @@ body {
   padding-bottom: 10px;
 }
 
+.navbar-button {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
 button {
   background-color: #121212;
   }

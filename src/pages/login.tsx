@@ -22,6 +22,10 @@ function Page() {
 
   const router = useRouter();
 
+  useEffect(() => {
+    if (user?.sessionId) router.push("/");
+  });
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 

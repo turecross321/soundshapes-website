@@ -3,9 +3,9 @@ import SaveLoginDetails from "@/components/save-login-details";
 import SetEmailPage from "@/components/set-email-page";
 import SetPasswordPage from "@/components/set-password-page";
 import Stepper from "@/components/stepper";
+import UserProvider, { UserContext } from "@/contexts/UserContext";
 import { useRouter } from "next/router";
-import { emit } from "process";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 let userEmail: string;
 let userPassword: string;
@@ -15,6 +15,12 @@ function Page() {
 
   const [completedSteps, setCompletedSteps] = useState<number>(0);
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user?.sessionId) router.push("/");
+  });
 
   function SetEmailCallback(email: string) {
     userEmail = email;

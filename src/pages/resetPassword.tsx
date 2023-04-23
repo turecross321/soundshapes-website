@@ -5,13 +5,19 @@ import SaveLoginDetails from "@/components/save-login-details";
 import SetPasswordPage from "@/components/set-password-page";
 import Stepper from "@/components/stepper";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import UserProvider, { UserContext } from "@/contexts/UserContext";
 
 let userEmail: string;
 let userPassword: string;
 
 function Page() {
   const router = useRouter();
+  const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user?.sessionId) router.push("/");
+  });
 
   const [completedSteps, setCompletedSteps] = useState<number>(0);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -51,7 +57,7 @@ function Page() {
   }
 
   return (
-    <div className="w-[450px]">
+    <div className="w-auto">
       <h1 className="text-5xl font-bold text-center mb-6">Reset Password</h1>
       <div className="mb-4">
         <Stepper
