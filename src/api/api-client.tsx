@@ -1,5 +1,7 @@
 import { create } from "middleware-axios/dist";
 import { AuthenticationResponse } from "./types/authentication-responses";
+import { AxiosError } from "axios";
+import { LogIn } from "./api-authentication";
 
 export const apiUrl: string = "http://192.168.1.134:10061/api/v1/";
 
@@ -20,5 +22,15 @@ api.use(async (config, next, defaults) => {
     } catch {}
   }
 
-  await next(config);
+  try {
+    await next(config);
+  } catch (error: any) {
+    if (error.response.status == 403) {
+      // If there is a session and the user got 403, nuke it
+      if (localStorage.getItem("session")) {
+        localStorage.removeItem("session");
+        location.assign("/");
+      }
+    }
+  }
 });

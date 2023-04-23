@@ -8,7 +8,7 @@ import { AuthenticationResponse } from "./types/authentication-responses";
 export async function LogIn(
   email: string,
   password: string,
-  setSession: Dispatch<SetStateAction<AuthenticationResponse>>,
+  setSession: Dispatch<SetStateAction<AuthenticationResponse>> | null,
   hashPassword: boolean = true
 ) {
   let hash = hashPassword ? SHA512(password).toString() : password;
@@ -27,7 +27,7 @@ export async function LogIn(
 
     ToastSuccess("Welcome, " + response.data.Username);
 
-    setSession(response.data);
+    if (setSession) setSession(response.data);
 
     return response.data;
   } catch (error: any) {

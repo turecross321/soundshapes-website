@@ -12,7 +12,7 @@ import { UserGroupIcon } from "@heroicons/react/24/outline";
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import FollowButton from "@/components/follow-button";
 import { SessionContext } from "@/contexts/SessionContext";
-import Sidebar from "@/components/user-navbar";
+import Sidebar from "@/components/sidebar";
 import Levels from "@/components/levels";
 import Users from "@/components/users";
 import { GetLevelsByUser } from "@/api/api-levels";

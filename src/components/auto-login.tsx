@@ -15,11 +15,15 @@ const AutoLogin: FC<AutoLoginProps> = ({}) => {
 
   useEffect(() => {
     async function Login() {
+      if (!setSession) return;
+
       sessionString = localStorage.getItem("session");
+      let email = localStorage.getItem("email");
+      let password = localStorage.getItem("hash");
       if (sessionString) {
         session = JSON.parse(sessionString.toString());
 
-        if (session.Id && setSession) {
+        if (session.Id) {
           new Date(session.ExpiresAt).getUTCDate();
 
           // Login again if session has expired
@@ -46,6 +50,22 @@ const AutoLogin: FC<AutoLoginProps> = ({}) => {
 
           setSession(session);
         }
+      } else if (email && password) {
+        if (!email || !password) {
+          router.push("login");
+          return;
+        }
+
+        let result = await LogIn(email, password, setSession, false);
+        if (!result) {
+          localStorage.removeItem("session");
+          localStorage.removeItem("email");
+          localStorage.removeItem("hash");
+          router.push("login");
+          return;
+        }
+
+        session = result;
       }
     }
     Login();

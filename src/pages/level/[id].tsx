@@ -12,7 +12,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { apiUrl } from "@/api/api-client";
-import Sidebar from "@/components/user-navbar";
+import Sidebar from "@/components/sidebar";
 import Leaderboard from "@/components/leaderboard";
 import Users from "@/components/users";
 
