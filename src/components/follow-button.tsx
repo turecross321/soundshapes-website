@@ -1,72 +1,61 @@
 import { FC, useEffect, useState } from "react";
-import UserProvider, { UserContext } from "@/contexts/UserContext";
+import SessionProvider, { SessionContext } from "@/contexts/SessionContext";
 import { useContext } from "react";
-import { CheckIfFollowed, GetUser } from "@/api/api-users";
-import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { CheckIfFollowed, FollowUser } from "@/api/api-users";
 
 interface FollowButtonProps {
   id: string;
+  logOut: () => void;
+  refreshPage: () => void;
 }
-const FollowButton: FC<FollowButtonProps> = ({ id }) => {
-  const [followText, setFollowText] = useState("");
+const FollowButton: FC<FollowButtonProps> = ({ id, logOut, refreshPage }) => {
+  const [following, setFollowing] = useState<boolean>(false);
 
-  const { user } = useContext(UserContext);
+  const { session } = useContext(SessionContext);
 
   useEffect(() => {
-    if (!user?.userId || !user?.sessionId) return;
+    async function Fetch() {
+      if (!session?.Id) return;
 
-    CheckIfFollowed(user.userId, user.sessionId).then((response) => {
-      if (response) setFollowText("Unfollow");
-      else setFollowText("Follow");
-    });
+      setFollowing(await CheckIfFollowed(id));
+    }
+
+    Fetch();
   });
 
-  if (user?.sessionId == "") {
+  async function Follow() {
+    setFollowing(true);
+    await FollowUser(id, true);
+    refreshPage();
+  }
+
+  async function UnFollow() {
+    setFollowing(false);
+    await FollowUser(id, false);
+    refreshPage();
+  }
+
+  if (!session?.Id) {
     // If user isn't logged in or if following is undefined
     return <></>;
   }
 
-  if (user?.userId == id) {
+  if (session.UserId == id) {
     return (
-      <button
-        type="submit"
-        className="bg-gray-700 text-white py-2 rounded hover:bg-gray-600 transistion-colors w-1/3"
-      >
-        Settings
+      <button type="submit" className="fancy-button ml-4" onClick={logOut}>
+        Log out
       </button>
     );
   } else
     return (
       <button
         type="submit"
-        className="bg-gray-700 text-white py-2 rounded hover:bg-gray-600 transistion-colors w-1/3"
+        className="bg-gray-700 text-white py-2 rounded hover:bg-gray-600 transistion-colors follow-button ml-4"
+        onClick={following ? UnFollow : Follow}
       >
-        {followText}
+        {following ? "Unfollow" : "Follow"}
       </button>
     );
 };
 
 export default FollowButton;
-
-export const getServerSideProps: GetServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const { id } = context.query;
-
-  if (!id)
-    return {
-      props: {},
-    };
-
-  let userId = id.toString();
-
-  const user = await GetUser(userId);
-
-  // Pass user to the page  via props
-  return {
-    props: {
-      user,
-      userId: userId,
-    },
-  };
-};

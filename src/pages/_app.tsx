@@ -4,8 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import Navbar from "@/components/navbar";
-import UserProvider, { UserContext } from "@/contexts/UserContext";
-import SaveLoginDetails from "@/components/save-login-details";
+import SessionProvider, { SessionContext } from "@/contexts/SessionContext";
+import AutoLogin from "@/components/auto-login";
 
 export function ToastSuccess(message: string) {
   toast.success(message);
@@ -19,16 +19,16 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <main className="min-h-screen bg-gradient-to-b from-pink-950 to-black">
-        <UserProvider>
-          <SaveLoginDetails />
+        <SessionProvider>
+          <AutoLogin />
           <Navbar />
-          <div className="content flex justify-center">
-            <div className="content bg-black rounded-xl bg-opacity-50">
+          <div className="flex justify-center items content-padding">
+            <div>
               <Component {...pageProps} />{" "}
             </div>
             <ToastContainer autoClose={1000} />
           </div>
-        </UserProvider>
+        </SessionProvider>
       </main>
     </>
   );

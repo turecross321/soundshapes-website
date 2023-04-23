@@ -1,23 +1,18 @@
 import { LogIn } from "@/api/api-authentication";
-import { SetPassword } from "@/api/api-registration";
 import EmailInputForPasswordReset from "@/components/email-input-for-password-reset";
-import SaveLoginDetails from "@/components/save-login-details";
 import SetPasswordPage from "@/components/set-password-page";
 import Stepper from "@/components/stepper";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
-import UserProvider, { UserContext } from "@/contexts/UserContext";
+import { useContext, useState } from "react";
+import SessionProvider, { SessionContext } from "@/contexts/SessionContext";
+import EnforceAuthentication from "@/components/enforce-authentication";
 
 let userEmail: string;
 let userPassword: string;
 
 function Page() {
   const router = useRouter();
-  const { user } = useContext(UserContext);
-
-  useEffect(() => {
-    if (user?.sessionId) router.push("/");
-  });
+  const { session, setSession } = useContext(SessionContext);
 
   const [completedSteps, setCompletedSteps] = useState<number>(0);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -33,7 +28,7 @@ function Page() {
   }
 
   async function FinishRegistration() {
-    await LogIn(userEmail, userPassword);
+    if (setSession) await LogIn(userEmail, userPassword, setSession);
     setLoggedIn(true);
     router.push("/");
   }
@@ -57,17 +52,18 @@ function Page() {
   }
 
   return (
-    <div className="w-auto">
-      <h1 className="text-5xl font-bold text-center mb-6">Reset Password</h1>
-      <div className="mb-4">
-        <Stepper
-          steps={["Email", "Password"]}
-          completedSteps={completedSteps}
-        />
+    <EnforceAuthentication shouldBeAuthenticated={false}>
+      <div className="w-auto content content-padding">
+        <h1 className="text-5xl font-bold text-center mb-6">Reset Password</h1>
+        <div className="mb-4">
+          <Stepper
+            steps={["Email", "Password"]}
+            completedSteps={completedSteps}
+          />
+        </div>
+        {GetCurrentPage()}
       </div>
-      {GetCurrentPage()}
-      {loggedIn ? <SaveLoginDetails /> : null}
-    </div>
+    </EnforceAuthentication>
   );
 }
 

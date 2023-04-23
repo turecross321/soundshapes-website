@@ -1,10 +1,11 @@
 import { ToastError } from "@/pages/_app";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { SHA512 } from "crypto-js";
+import { api } from "./api-client";
 import {
-  GetPasswordSessionRequest,
   SetEmailRequest,
   SetPasswordRequest,
+  GetPasswordSessionRequest,
 } from "./types/registration-requests";
 
 export async function SetEmail(authCode: string, email: string) {
@@ -19,11 +20,7 @@ export async function SetEmail(authCode: string, email: string) {
   };
 
   try {
-    let response = await axios.post(
-      process.env.NEXT_PUBLIC_API_URL + "setEmail",
-      request,
-      config
-    );
+    let response = await api.post("setEmail", request, config);
 
     return true;
   } catch (error) {
@@ -47,11 +44,7 @@ export async function SetPassword(authCode: string, password: string) {
   };
 
   try {
-    let response = await axios.post(
-      process.env.NEXT_PUBLIC_API_URL + "setPassword",
-      request,
-      config
-    );
+    let response = await api.post("setPassword", request, config);
 
     return true;
   } catch (error) {
@@ -67,10 +60,7 @@ export async function SendPasswordSessionRequest(email: string) {
   };
 
   try {
-    let response = await axios.post(
-      process.env.NEXT_PUBLIC_API_URL + "sendPasswordSession",
-      request
-    );
+    let response = await api.post("sendPasswordSession", request);
 
     return true;
   } catch (error) {

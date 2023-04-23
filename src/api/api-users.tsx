@@ -1,37 +1,35 @@
-import axios from "axios";
+import { api } from "./api-client";
 import { UserResponse } from "./types/user-response";
-import UserProvider, { UserContext } from "@/contexts/UserContext";
-import Link from "next/link";
-import { useContext, useEffect } from "react";
 
 export async function GetUser(userId: string) {
   try {
-    let response = await axios.get<UserResponse>(
-      process.env.NEXT_PUBLIC_API_URL + `user/${userId}`
-    );
+    let response = await api.get<UserResponse>(`user/${userId}`);
 
     return response.data;
   } catch (error) {
+    console.log(error);
     return null;
   }
 }
 
-export async function CheckIfFollowed(userId: string, sessionId: string) {
-  if (sessionId === "") return null;
-
-  const config = {
-    headers: {
-      Authorization: sessionId,
-    },
-  };
-
+export async function CheckIfFollowed(userId: string) {
   try {
-    let response = await axios.get(
-      process.env.NEXT_PUBLIC_API_URL + `user/${userId}/followed`,
-      config
-    );
+    let response = await api.get<any>(`user/${userId}/followed`);
 
     return response.data.IsFollowed;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
+export async function FollowUser(id: string, follow: boolean) {
+  try {
+    let response = await api.post(
+      `user/${id}/${follow ? "follow" : "unFollow"}`
+    );
+
+    return response.status;
   } catch (error) {
     return null;
   }

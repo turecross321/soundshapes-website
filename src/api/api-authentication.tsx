@@ -1,11 +1,17 @@
+import { ToastSuccess, ToastError } from "@/pages/_app";
 import { SHA512 } from "crypto-js";
-import axios, { AxiosError } from "axios";
+import { Dispatch, SetStateAction } from "react";
+import { api } from "./api-client";
 import { LoginRequest } from "./types/authentication-requests";
-import { ToastError, ToastSuccess } from "@/pages/_app";
-import { createContext } from "react";
+import { AuthenticationResponse } from "./types/authentication-responses";
 
-export async function LogIn(email: string, password: string) {
-  let hash = SHA512(password).toString();
+export async function LogIn(
+  email: string,
+  password: string,
+  setSession: Dispatch<SetStateAction<AuthenticationResponse>>,
+  hashPassword: boolean = true
+) {
+  let hash = hashPassword ? SHA512(password).toString() : password;
 
   let request: LoginRequest = {
     Email: email,
@@ -13,24 +19,25 @@ export async function LogIn(email: string, password: string) {
   };
 
   try {
-    let response = await axios.post(
-      process.env.NEXT_PUBLIC_API_URL + "login",
-      request
-    );
+    let response = await api.post<AuthenticationResponse>("login", request);
 
-    sessionStorage.setItem("sessionId", response.data.Id);
-    sessionStorage.setItem("userId", response.data.UserId);
-    sessionStorage.setItem("username", response.data.Username);
-
+    localStorage.setItem("session", JSON.stringify(response.data));
     localStorage.setItem("email", email);
     localStorage.setItem("hash", hash);
 
     ToastSuccess("Welcome, " + response.data.Username);
 
+    setSession(response.data);
+
     return response.data;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      ToastError(error.response?.data.Reason ?? "An error has occurred.");
-    }
+  } catch (error: any) {
+    ToastError(error.response?.data.Reason ?? "An error has occurred.");
+    console.log(error);
   }
+}
+
+export async function LogOut() {
+  try {
+    api.post("logout");
+  } catch (error) {}
 }

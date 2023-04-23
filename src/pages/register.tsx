@@ -1,11 +1,11 @@
 import { LogIn } from "@/api/api-authentication";
-import SaveLoginDetails from "@/components/save-login-details";
+import EnforceAuthentication from "@/components/enforce-authentication";
 import SetEmailPage from "@/components/set-email-page";
 import SetPasswordPage from "@/components/set-password-page";
 import Stepper from "@/components/stepper";
-import UserProvider, { UserContext } from "@/contexts/UserContext";
+import SessionProvider, { SessionContext } from "@/contexts/SessionContext";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 let userEmail: string;
 let userPassword: string;
@@ -16,11 +16,7 @@ function Page() {
   const [completedSteps, setCompletedSteps] = useState<number>(0);
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const { user } = useContext(UserContext);
-
-  useEffect(() => {
-    if (user?.sessionId) router.push("/");
-  });
+  const { session, setSession } = useContext(SessionContext);
 
   function SetEmailCallback(email: string) {
     userEmail = email;
@@ -33,7 +29,7 @@ function Page() {
   }
 
   async function FinishRegistration() {
-    await LogIn(userEmail, userPassword);
+    if (setSession) await LogIn(userEmail, userPassword, setSession);
     setLoggedIn(true);
     router.push("/");
   }
@@ -51,18 +47,19 @@ function Page() {
   }
 
   return (
-    <div className="w-80">
-      <h1 className="text-5xl font-bold text-center mb-4">Registration</h1>
-      <div className="flex justify-center">
-        <Stepper
-          steps={["Email", "Password"]}
-          completedSteps={completedSteps}
-        />
+    <EnforceAuthentication shouldBeAuthenticated={false}>
+      <div className="w-80 content content-padding">
+        <h1 className="text-5xl font-bold text-center mb-4">Registration</h1>
+        <div className="flex justify-center">
+          <Stepper
+            steps={["Email", "Password"]}
+            completedSteps={completedSteps}
+          />
+        </div>
+        <div className="mb-4"></div>
+        {GetCurrentPage()}
       </div>
-      <div className="mb-4"></div>
-      {GetCurrentPage()}
-      {loggedIn ? <SaveLoginDetails /> : null}
-    </div>
+    </EnforceAuthentication>
   );
 }
 

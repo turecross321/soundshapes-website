@@ -1,10 +1,9 @@
-import UserProvider, { UserContext } from "@/contexts/UserContext";
-import Link from "next/link";
-import { useContext, useEffect } from "react";
+import SessionProvider, { SessionContext } from "@/contexts/SessionContext";
+import { useContext } from "react";
 import NavbarButton from "./navbar-button";
 
 function Navbar() {
-  const { user } = useContext(UserContext);
+  const { session } = useContext(SessionContext);
 
   return (
     <nav className="w-full p-5 bg-black bg-opacity-50 ease-in duration-300 flex justify-between backdrop-blur-xl border-b border-slate-200 border-opacity-10 shadow-sm items-center">
@@ -12,10 +11,10 @@ function Navbar() {
         <NavbarButton url="/" name="Home" />
       </div>
       <div>
-        {user?.sessionId ? (
+        {session?.UserId ? (
           <div className="flex">
             <NavbarButton url="/authorization" name="Authorization" />
-            <NavbarButton url={`/profile/${user.userId}`} name="Profile" />
+            <NavbarButton url={`/profile/${session.UserId}`} name="Profile" />
           </div>
         ) : (
           <div>
