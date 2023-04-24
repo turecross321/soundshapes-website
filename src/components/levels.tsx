@@ -23,7 +23,6 @@ const Levels: FC<LevelProps> = ({
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [from, setFrom] = useState<number>(fromProp);
   const [levels, setLevels] = useState<LevelResponseWrapper>(levelWrapper);
-  const [loadedFrom, setLoadedFrom] = useState<number>(0);
 
   if (levels.Count < 1) return <div></div>;
 
@@ -45,12 +44,10 @@ const Levels: FC<LevelProps> = ({
       if (response) {
         setLevels(response);
       }
-      setLoadedFrom(from);
     }
 
     if (currentPage == 0) {
       setLevels(levelWrapper);
-      setLoadedFrom(from);
     } else LoadLevels();
   }, [currentPage]);
 
@@ -75,12 +72,10 @@ const Levels: FC<LevelProps> = ({
 
         <div>
           <div>
-            {loadedFrom > 0 ? (
-              <PreviousPageButton callback={PreviousPage} />
-            ) : null}
+            {from > 0 ? <PreviousPageButton callback={PreviousPage} /> : null}
           </div>
           <div>
-            {loadedFrom + pageSize < levelWrapper.Count ? (
+            {from + pageSize < levelWrapper.Count ? (
               <NextPageButton callback={NextPage} />
             ) : null}
           </div>

@@ -15,6 +15,7 @@ import { apiUrl } from "@/api/api-client";
 import Sidebar from "@/components/sidebar";
 import Leaderboard from "@/components/leaderboard";
 import Users from "@/components/users";
+import Level from "@/components/level";
 
 interface IndexPageProps {
   level: LevelResponse;
@@ -36,22 +37,24 @@ export default function Page({ level }: IndexPageProps) {
   }
 
   return (
-    <>
+    <div className="max-w-sm md:max-w-md">
       <div className="flex justify-between items-start">
-        <div>
-          <div className="w-auto content content-padding mb-1">
-            <div className="w-80 flex justify-between items-start">
-              <div className="w-56">
-                <h1 className="text-3xl font-bold break-words">{level.Name}</h1>
+        <div className="space-y-1 w-full">
+          <div className="content content-padding">
+            <div className="flex justify-between items-start ">
+              <div className="overflow-x-clip">
+                <h1 className="text-3xl font-bold break-words w-auto">
+                  {level.Name}
+                </h1>
               </div>
-              <div className="w-full flex justify-end"></div>
+
+              <div className="fancy-button bg-gray-600 ml-6">Like</div>
             </div>
             <h2 className="text-base">
               <Link href={`/profile/${level.AuthorId}`}>
                 {"by " + level.AuthorName}
               </Link>
             </h2>
-
             <div className="flex items-center mt-2">
               <div className="flex items-center">
                 <PlayIcon className="w-4 h-4 mr-1" />
@@ -63,8 +66,14 @@ export default function Page({ level }: IndexPageProps) {
                 <p>{level.Likes}</p>
               </div>
             </div>
+            <div className="text-xs mt-2">
+              Last Updated: {level.Modified.toString().slice(0, 10)}
+            </div>
           </div>
 
+          <Sidebar buttonNames={["Leaderboard", "Likes"]} setPage={setPage} />
+        </div>
+        <div className="md:block max-xl:hidden ml-1">
           <div className="content thumbnail-padding mb-1">
             <img
               src={apiUrl + `level/${level.Id}/thumbnail`}
@@ -72,18 +81,21 @@ export default function Page({ level }: IndexPageProps) {
               alt="thumbnail"
             />
           </div>
-
-          <Sidebar buttonNames={["Leaderboard", "Likes"]} setPage={setPage} />
-        </div>
-        <div className="ml-1 content content-padding md:block max-xl:hidden">
-          {GetCurrentPage()}
+          <div className="content content-padding">{GetCurrentPage()}</div>
         </div>
       </div>
 
-      <div className="mt-1 content content-padding md:hidden">
-        {GetCurrentPage()}
+      <div className="mt-1 md:hidden w-full">
+        <div className="content thumbnail-padding mb-1 flex justify-center">
+          <img
+            src={apiUrl + `level/${level.Id}/thumbnail`}
+            className="level-content rounded w-full"
+            alt="thumbnail"
+          />
+        </div>
+        <div className="content content-padding">{GetCurrentPage()}</div>
       </div>
-    </>
+    </div>
   );
 }
 

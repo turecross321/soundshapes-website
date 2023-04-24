@@ -11,13 +11,14 @@ const Sidebar: FC<SidebarProps> = ({ setPage, buttonNames }) => {
   }
 
   return (
-    <div className="content content-padding">
+    <div className="content content-padding space-y-2">
       {buttonNames.map((button, index) => (
         <button
-          className="text-white py-2 rounded hover:bg-gray-600 transistion-colors w-full bg-gray-700 mb-2"
+          className="text-white py-2 rounded hover:bg-gray-600 transistion-colors w-full bg-gray-700"
           onClick={() => ClickButton(index)}
+          key={index}
         >
-          {buttonNames[index]}
+          {button}
         </button>
       ))}
     </div>

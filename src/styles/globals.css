@@ -38,7 +38,7 @@ body {
 }
 
 .fancy-button {
-  @apply bg-gray-700 text-white py-2 rounded hover:bg-gray-600;
+  @apply text-white py-2 rounded;
   padding-left: 15px;
   padding-right: 15px;
 }

@@ -24,7 +24,7 @@ const AuthorizedIp: FC<AuthorizedIpProps> = ({
       </div>
 
       <button
-        className="button bg-red-600 text-white py-2 rounded hover:bg-red-500 transistion-colors mr-2 text-s"
+        className="fancy-button bg-red-600 text-white py-2 rounded hover:bg-red-500 transistion-colors mr-2 text-s"
         onClick={RemoveIp}
       >
         Remove

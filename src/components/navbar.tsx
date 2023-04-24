@@ -52,21 +52,12 @@ function Navbar() {
         </div>
 
         {showMobileNavbar ? (
-          <div className="items-center w-fill text-center md:hidden ease-in duration-300">
+          <div className="items-center w-fill text-center md:hidden ease-in duration-300 space-y-2">
             {DefaultMenus.concat(
               session?.Id ? LoggedInMenus : NotLoggedInMenus
             ).map((menu, index) => (
               <div key={`mobile-${index}`}>
                 <div className="text-2xl">{menu}</div>
-                {index <
-                DefaultMenus.concat(
-                  session?.Id ? LoggedInMenus : NotLoggedInMenus
-                ).length -
-                  1 ? (
-                  <div className="mt-4 mb-4">
-                    <Divider />
-                  </div>
-                ) : null}
               </div>
             ))}
           </div>

@@ -3,6 +3,8 @@ export interface LevelResponse {
   Name: string;
   AuthorId: string;
   AuthorName: string;
+  Created: Date;
+  Modified: Date;
   TotalPlays: number;
   UniquePlays: number;
   Likes: number;

@@ -42,7 +42,11 @@ const FollowButton: FC<FollowButtonProps> = ({ id, logOut, refreshPage }) => {
 
   if (session.UserId == id) {
     return (
-      <button type="submit" className="fancy-button ml-4" onClick={logOut}>
+      <button
+        type="submit"
+        className="fancy-button  bg-gray-700  hover:bg-gray-600 whitespace-nowrap resize-none"
+        onClick={logOut}
+      >
         Log out
       </button>
     );
@@ -50,7 +54,7 @@ const FollowButton: FC<FollowButtonProps> = ({ id, logOut, refreshPage }) => {
     return (
       <button
         type="submit"
-        className="bg-gray-700 text-white py-2 rounded hover:bg-gray-600 transistion-colors follow-button"
+        className="fancy-button bg-gray-700  hover:bg-gray-600 whitespace-nowrap resize-none"
         onClick={following ? UnFollow : Follow}
       >
         {following ? "Unfollow" : "Follow"}
