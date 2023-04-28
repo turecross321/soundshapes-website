@@ -29,7 +29,6 @@ api.use(async (config, next, defaults) => {
       // If there is a session and the user got 403, nuke it
       if (localStorage.getItem("session")) {
         localStorage.removeItem("session");
-        location.assign("/");
       }
     }
   }

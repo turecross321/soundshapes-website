@@ -13,8 +13,11 @@ const AutoLogin: FC<AutoLoginProps> = ({}) => {
   let sessionString;
   let session: AuthenticationResponse;
 
+  let triedToLogIn = false;
+
   useEffect(() => {
     async function Login() {
+      triedToLogIn = true;
       if (!setSession) return;
 
       sessionString = localStorage.getItem("session");
@@ -52,6 +55,12 @@ const AutoLogin: FC<AutoLoginProps> = ({}) => {
         }
       } else if (email && password) {
         if (!email || !password) {
+          setSession({
+            Id: "",
+            ExpiresAt: new Date(),
+            UserId: "",
+            Username: "",
+          });
           router.push("login");
           return;
         }
@@ -61,6 +70,14 @@ const AutoLogin: FC<AutoLoginProps> = ({}) => {
           localStorage.removeItem("session");
           localStorage.removeItem("email");
           localStorage.removeItem("hash");
+
+          setSession({
+            Id: "",
+            ExpiresAt: new Date(),
+            UserId: "",
+            Username: "",
+          });
+
           router.push("login");
           return;
         }
@@ -68,7 +85,7 @@ const AutoLogin: FC<AutoLoginProps> = ({}) => {
         session = result;
       }
     }
-    Login();
+    if (!triedToLogIn) Login();
   }, [setSession]);
 
   return null;

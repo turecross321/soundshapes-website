@@ -27,19 +27,19 @@ const UnAuthorizedIp: FC<UnAuthorizedIpProps> = ({
     <div className="mb-2">
       <h1 className="text-xl mb-1">{address}</h1>
       <button
-        className="button bg-green-600 text-white py-2 rounded hover:bg-green-500 transistion-colors mr-2 text-s"
+        className="fancy-button bg-green-600 text-white py-2 rounded hover:bg-green-500 transistion-colors mr-2 text-s"
         onClick={AuthorizeIpIndefinitely}
       >
         Always Allow
       </button>
       <button
-        className="button bg-yellow-600 text-white py-2 rounded hover:bg-yellow-500 transistion-colors mr-2 text-s"
+        className="fancy-button bg-yellow-600 text-white py-2 rounded hover:bg-yellow-500 transistion-colors mr-2 text-s"
         onClick={AuthorizeIpOnce}
       >
         Allow Once
       </button>
       <button
-        className="button bg-red-600 text-white py-2 rounded hover:bg-red-500 transistion-colors text-s"
+        className="fancy-button bg-red-600 text-white py-2 rounded hover:bg-red-500 transistion-colors text-s"
         onClick={UnAuthorizeIp}
       >
         Don't Allow

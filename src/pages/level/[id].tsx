@@ -41,7 +41,7 @@ export default function Page({ level }: IndexPageProps) {
       <div className="flex justify-between items-start">
         <div className="space-y-1 w-full">
           <div className="content content-padding">
-            <div className="flex justify-between items-start ">
+            <div className="flex justify-between items-start">
               <div className="overflow-x-clip">
                 <h1 className="text-3xl font-bold break-words w-auto">
                   {level.Name}

@@ -17,14 +17,10 @@ import {
 import EnforceAuthentication from "@/components/enforce-authentication";
 import { AuthenticationResponse } from "@/api/types/authentication-responses";
 import Divider from "@/components/divider";
+import AutoLogin from "@/components/auto-login";
 
 async function RefreshAuthed(user: AuthenticationResponse, router: NextRouter) {
   let authed = await GetAuthorizedIpAddresses();
-
-  if (authed === null) {
-    router.push("login");
-    return;
-  }
 
   return authed;
 }
@@ -34,11 +30,6 @@ async function RefreshUnAuthed(
   router: NextRouter
 ) {
   let unAuthed = await GetUnAuthorizedIpAddresses();
-
-  if (unAuthed === null) {
-    router.push("login");
-    return;
-  }
 
   return unAuthed;
 }
@@ -59,13 +50,18 @@ const Authorization: FC<AuthorizationProps> = ({}) => {
     let authed = await RefreshAuthed(session, router);
     let unAuthed = await RefreshUnAuthed(session, router);
 
+    if (!authed || !unAuthed) {
+      location.assign("/");
+      return;
+    }
+
     setAuthorizedIps(authed);
     setUnAuthorizedIps(unAuthed);
   }
 
   useEffect(() => {
     const getIps = async () => {
-      Refresh();
+      return Refresh();
     };
 
     // Call getIps immediately
