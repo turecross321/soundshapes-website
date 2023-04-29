@@ -10,7 +10,7 @@ import {
 
 export async function SetEmail(authCode: string, email: string) {
   let request: SetEmailRequest = {
-    Email: email,
+    NewEmail: email,
   };
 
   let config = {
@@ -33,7 +33,7 @@ export async function SetPassword(authCode: string, password: string) {
   let hash = SHA512(password).toString();
 
   let request: SetPasswordRequest = {
-    PasswordSha512: hash,
+    NewPasswordSha512: hash,
   };
 
   let config = {
