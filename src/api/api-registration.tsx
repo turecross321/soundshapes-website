@@ -20,7 +20,7 @@ export async function SetEmail(authCode: string, email: string) {
   };
 
   try {
-    let response = await api.post("setEmail", request, config);
+    let response = await api.post("account/setEmail", request, config);
 
     return true;
   } catch (error: any) {
@@ -43,7 +43,7 @@ export async function SetPassword(authCode: string, password: string) {
   };
 
   try {
-    let response = await api.post("setPassword", request, config);
+    let response = await api.post("account/setPassword", request, config);
 
     return true;
   } catch (error: any) {
@@ -58,7 +58,7 @@ export async function SendPasswordSessionRequest(email: string) {
   };
 
   try {
-    let response = await api.post("sendPasswordSession", request);
+    let response = await api.post("account/sendPasswordSession", request);
 
     return true;
   } catch (error: any) {

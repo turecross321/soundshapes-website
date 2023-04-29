@@ -19,7 +19,10 @@ export async function LogIn(
   };
 
   try {
-    let response = await api.post<AuthenticationResponse>("login", request);
+    let response = await api.post<AuthenticationResponse>(
+      "account/login",
+      request
+    );
 
     localStorage.setItem("session", JSON.stringify(response.data));
     localStorage.setItem("email", email);
@@ -38,6 +41,6 @@ export async function LogIn(
 
 export async function LogOut() {
   try {
-    api.post("logout");
+    api.post("account/logout");
   } catch (error) {}
 }

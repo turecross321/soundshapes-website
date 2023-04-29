@@ -1,7 +1,7 @@
 export interface UserResponse {
   Id: string;
   Username: string;
-  Online: boolean;
+  UserType: number;
   FollowerCount: number;
   FollowingCount: number;
   LikedLevelsCount: number;

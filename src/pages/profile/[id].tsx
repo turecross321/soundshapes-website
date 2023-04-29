@@ -1,9 +1,7 @@
-import { useRouter } from "next/router";
-import { CheckIfFollowed, GetUser } from "@/api/api-users";
+import { GetUser } from "@/api/api-users";
 import { LogOut } from "@/api/api-authentication";
-import { FC, useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { UserResponse } from "@/api/types/user-response";
-import Head from "next/head";
 import React from "react";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 
