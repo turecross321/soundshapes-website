@@ -26,7 +26,10 @@ export default function App({ Component, pageProps }: AppProps) {
             <div>
               <Component {...pageProps} />{" "}
             </div>
-            <ToastContainer autoClose={1000} />
+            <ToastContainer
+              autoClose={2000}
+              toastStyle={{ backgroundColor: "#000000a0", color: "#ffffff" }}
+            />
           </div>
         </SessionProvider>
       </main>
