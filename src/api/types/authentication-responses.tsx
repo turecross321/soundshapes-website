@@ -4,7 +4,3 @@ export interface AuthenticationResponse {
   UserId: string;
   Username: string;
 }
-
-export interface AuthenticationErrorResponse {
-  Response: string;
-}

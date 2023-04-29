@@ -15,8 +15,8 @@ const Level: FC<LevelProps> = ({ level }) => {
         <Link href={`/level/${level.Id}`}>
           <img
             src={apiUrl + `level/${level.Id}/thumbnail`}
-            className="rounded"
             alt="thumbnail"
+            className="w-full aspect-video"
           />
         </Link>
       </div>

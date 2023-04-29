@@ -77,7 +77,7 @@ export default function Page({ level }: IndexPageProps) {
           <div className="content thumbnail-padding mb-1">
             <img
               src={apiUrl + `level/${level.Id}/thumbnail`}
-              className="level-content rounded w-full h-full"
+              className="level-content rounded"
               alt="thumbnail"
             />
           </div>
@@ -89,7 +89,7 @@ export default function Page({ level }: IndexPageProps) {
         <div className="content thumbnail-padding mb-1 flex justify-center">
           <img
             src={apiUrl + `level/${level.Id}/thumbnail`}
-            className="level-content rounded w-full"
+            className="level-content rounded w-full aspect-video"
             alt="thumbnail"
           />
         </div>

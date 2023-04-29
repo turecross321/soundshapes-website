@@ -31,7 +31,7 @@ export async function LogIn(
 
     return response.data;
   } catch (error: any) {
-    ToastError(error.response?.data.Reason ?? "An error has occurred.");
+    ToastError(error.response?.data ?? "An error has occurred.");
     console.log(error);
   }
 }
