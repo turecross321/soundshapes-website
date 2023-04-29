@@ -27,10 +27,12 @@ const AutoLogin: FC<AutoLoginProps> = ({}) => {
         session = JSON.parse(sessionString.toString());
 
         if (session.Id) {
-          new Date(session.ExpiresAt).getUTCDate();
+          new Date(session.ExpiresAtUtc).getUTCDate();
 
           // Login again if session has expired
-          if (new Date(session.ExpiresAt).getTime() <= new Date().getTime()) {
+          if (
+            new Date(session.ExpiresAtUtc).getTime() <= new Date().getTime()
+          ) {
             let email = localStorage.getItem("email");
             let password = localStorage.getItem("hash");
 
@@ -57,7 +59,7 @@ const AutoLogin: FC<AutoLoginProps> = ({}) => {
         if (!email || !password) {
           setSession({
             Id: "",
-            ExpiresAt: new Date(),
+            ExpiresAtUtc: new Date(),
             UserId: "",
             Username: "",
           });
@@ -73,7 +75,7 @@ const AutoLogin: FC<AutoLoginProps> = ({}) => {
 
           setSession({
             Id: "",
-            ExpiresAt: new Date(),
+            ExpiresAtUtc: new Date(),
             UserId: "",
             Username: "",
           });

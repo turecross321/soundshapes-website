@@ -1,6 +1,6 @@
 export interface AuthenticationResponse {
   Id: string;
-  ExpiresAt: Date;
+  ExpiresAtUtc: Date;
   UserId: string;
   Username: string;
 }

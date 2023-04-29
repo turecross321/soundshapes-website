@@ -44,7 +44,12 @@ export default function Page({ userProp, levelsProp }: IndexPageProps) {
 
   async function HandleLogOut() {
     if (setSession)
-      setSession({ Id: "", ExpiresAt: new Date(), UserId: "", Username: "" });
+      setSession({
+        Id: "",
+        ExpiresAtUtc: new Date(),
+        UserId: "",
+        Username: "",
+      });
     await LogOut();
     localStorage.removeItem("session");
     localStorage.removeItem("email");
