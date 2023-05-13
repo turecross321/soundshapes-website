@@ -76,7 +76,7 @@ export default function Page({ level }: IndexPageProps) {
         <div className="md:block max-xl:hidden ml-1">
           <div className="content thumbnail-padding mb-1">
             <img
-              src={apiUrl + `level/${level.Id}/thumbnail`}
+              src={apiUrl + `levels/${level.Id}/thumbnail`}
               className="level-content rounded"
               alt="thumbnail"
             />
@@ -88,7 +88,7 @@ export default function Page({ level }: IndexPageProps) {
       <div className="mt-1 md:hidden w-full">
         <div className="content thumbnail-padding mb-1 flex justify-center">
           <img
-            src={apiUrl + `level/${level.Id}/thumbnail`}
+            src={apiUrl + `levels/${level.Id}/thumbnail`}
             className="level-content rounded w-full aspect-video"
             alt="thumbnail"
           />

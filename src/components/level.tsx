@@ -12,16 +12,16 @@ const Level: FC<LevelProps> = ({ level }) => {
   return (
     <div className="bg-black rounded-lg level-content bg-opacity-50">
       <div className="mb-2">
-        <Link href={`/level/${level.Id}`}>
+        <Link href={`/levels/${level.Id}`}>
           <img
-            src={apiUrl + `level/${level.Id}/thumbnail`}
+            src={apiUrl + `levels/${level.Id}/thumbnail`}
             alt="thumbnail"
             className="w-full aspect-video"
           />
         </Link>
       </div>
       <h3 className="text-xl truncate">
-        <Link href={`/level/${level.Id}`}>{level.Name} </Link>
+        <Link href={`/levels/${level.Id}`}>{level.Name} </Link>
       </h3>
       <div className="flex justify-between items-center">
         <h4 className="text-sm truncate">

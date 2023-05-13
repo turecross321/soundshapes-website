@@ -70,7 +70,7 @@ const Levels: FC<LevelProps> = ({
           {currentPage + 1} / {Math.ceil(levelWrapper.Count / pageSize)}
         </div>
 
-        <div>
+        <div className="flex gap-1">
           <div>
             {from > 0 ? <PreviousPageButton callback={PreviousPage} /> : null}
           </div>
