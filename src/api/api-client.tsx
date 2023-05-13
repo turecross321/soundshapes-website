@@ -1,9 +1,15 @@
 import { create } from "middleware-axios/dist";
 import { AuthenticationResponse } from "./types/authentication-responses";
-import { AxiosError } from "axios";
-import { LogIn } from "./api-authentication";
+import { ApiUrl } from "../../config";
 
-export const apiUrl: string = "http://192.168.1.134:10061/api/v1/";
+export let apiUrl: string;
+
+if (typeof location !== "undefined") {
+  apiUrl =
+    ApiUrl == "" ? "http://" + location.hostname + ":10061/api/v1/" : ApiUrl;
+} else {
+  apiUrl = ApiUrl == "" ? "http://127.0.0.1:10061/api/v1/" : ApiUrl;
+}
 
 export const api = create({
   baseURL: apiUrl,

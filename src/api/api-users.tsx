@@ -3,7 +3,7 @@ import { UserResponse } from "./types/user-response";
 
 export async function GetUser(userId: string) {
   try {
-    let response = await api.get<UserResponse>(`user/${userId}`);
+    let response = await api.get<UserResponse>(`users/${userId}`);
 
     return response.data;
   } catch (error) {
@@ -14,7 +14,7 @@ export async function GetUser(userId: string) {
 
 export async function CheckIfFollowed(userId: string) {
   try {
-    let response = await api.get<any>(`user/${userId}/followed`);
+    let response = await api.get<any>(`users/${userId}/followed`);
 
     return response.data.IsFollowed;
   } catch (error) {
@@ -26,7 +26,7 @@ export async function CheckIfFollowed(userId: string) {
 export async function FollowUser(id: string, follow: boolean) {
   try {
     let response = await api.post(
-      `user/${id}/${follow ? "follow" : "unFollow"}`
+      `users/${id}/${follow ? "follow" : "unFollow"}`
     );
 
     return response.status;
