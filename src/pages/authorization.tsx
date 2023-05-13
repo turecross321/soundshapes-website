@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
-import SessionProvider, { SessionContext } from "@/contexts/SessionContext";
+import { SessionContext } from "@/contexts/SessionContext";
 import { useContext, useEffect } from "react";
-import { NextRouter, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import {
   AuthorizeIpAddress,
   GetIpAddresses,
@@ -11,9 +11,7 @@ import UnAuthorizedIp from "@/components/unauthorized-ip";
 import AuthorizedIp from "@/components/authorized-ip";
 import { IpResponse } from "@/api/types/ip-authorization-responses";
 import EnforceAuthentication from "@/components/enforce-authentication";
-import { AuthenticationResponse } from "@/api/types/authentication-responses";
 import Divider from "@/components/divider";
-import AutoLogin from "@/components/auto-login";
 
 interface AuthorizationProps {}
 
