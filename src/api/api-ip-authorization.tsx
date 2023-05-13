@@ -3,28 +3,13 @@ import {
   AuthorizeIpRequest,
   UnAuthorizeIpRequest,
 } from "./types/ip-authorization-requests";
-import {
-  AuthorizedIpResponseWrapper,
-  UnAuthorizedIpResponseWrapper,
-} from "./types/ip-authorization-responses";
+import { IpWrapper } from "./types/ip-authorization-responses";
 
-export async function GetAuthorizedIpAddresses() {
+export async function GetIpAddresses() {
   try {
-    let response = await api.get<AuthorizedIpResponseWrapper>("ip/authorized");
+    let response = await api.get<IpWrapper>("ip/addresses");
 
-    return response.data.IpAddresses;
-  } catch (error) {
-    return null;
-  }
-}
-
-export async function GetUnAuthorizedIpAddresses() {
-  try {
-    let response = await api.get<UnAuthorizedIpResponseWrapper>(
-      "ip/unAuthorized"
-    );
-
-    return response.data.IpAddresses;
+    return response.data;
   } catch (error) {
     return null;
   }

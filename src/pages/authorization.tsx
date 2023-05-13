@@ -4,35 +4,16 @@ import { useContext, useEffect } from "react";
 import { NextRouter, useRouter } from "next/router";
 import {
   AuthorizeIpAddress,
-  GetAuthorizedIpAddresses,
-  GetUnAuthorizedIpAddresses,
+  GetIpAddresses,
   UnAuthorizeIpAddress,
 } from "@/api/api-ip-authorization";
 import UnAuthorizedIp from "@/components/unauthorized-ip";
 import AuthorizedIp from "@/components/authorized-ip";
-import {
-  AuthorizedIpResponse,
-  UnAuthorizedIpResponse,
-} from "@/api/types/ip-authorization-responses";
+import { IpResponse } from "@/api/types/ip-authorization-responses";
 import EnforceAuthentication from "@/components/enforce-authentication";
 import { AuthenticationResponse } from "@/api/types/authentication-responses";
 import Divider from "@/components/divider";
 import AutoLogin from "@/components/auto-login";
-
-async function RefreshAuthed(user: AuthenticationResponse, router: NextRouter) {
-  let authed = await GetAuthorizedIpAddresses();
-
-  return authed;
-}
-
-async function RefreshUnAuthed(
-  user: AuthenticationResponse,
-  router: NextRouter
-) {
-  let unAuthed = await GetUnAuthorizedIpAddresses();
-
-  return unAuthed;
-}
 
 interface AuthorizationProps {}
 
@@ -40,15 +21,23 @@ const Authorization: FC<AuthorizationProps> = ({}) => {
   const router = useRouter();
   const { session } = useContext(SessionContext);
 
-  const [authorizedIps, setAuthorizedIps] = useState<AuthorizedIpResponse[]>();
-  const [unAuthorizedIps, setUnAuthorizedIps] =
-    useState<UnAuthorizedIpResponse[]>();
+  const [authorizedIps, setAuthorizedIps] = useState<IpResponse[]>();
+  const [unAuthorizedIps, setUnAuthorizedIps] = useState<IpResponse[]>();
 
   async function Refresh() {
     if (!session) return;
 
-    let authed = await RefreshAuthed(session, router);
-    let unAuthed = await RefreshUnAuthed(session, router);
+    let addresses = await GetIpAddresses();
+    let authed: IpResponse[] = [];
+    let unAuthed: IpResponse[] = [];
+
+    addresses?.IpAddresses.forEach((element) => {
+      if (element.Authorized) {
+        authed.push(element);
+      } else {
+        unAuthed.push(element);
+      }
+    });
 
     if (!authed || !unAuthed) {
       location.assign("/");
@@ -95,13 +84,16 @@ const Authorization: FC<AuthorizationProps> = ({}) => {
     let newIps;
 
     if (authorizedIps)
-      newIps = [...authorizedIps, { IpAddress: ip, OneTimeUse: once }];
-    else newIps = [{ IpAddress: ip, OneTimeUse: once }];
+      newIps = [
+        ...authorizedIps,
+        { IpAddress: ip, Authorized: true, OneTimeUse: once },
+      ];
+    else newIps = [{ IpAddress: ip, Authorized: true, OneTimeUse: once }];
     setAuthorizedIps(newIps);
   }
 
   function RemoveAuthorizedIp(ip: string) {
-    let newIps: AuthorizedIpResponse[];
+    let newIps: IpResponse[];
 
     if (authorizedIps) {
       let indexToRemove = authorizedIps.findIndex((i) => i.IpAddress == ip);
@@ -115,11 +107,13 @@ const Authorization: FC<AuthorizationProps> = ({}) => {
   }
 
   function RemoveUnAuthorizedIp(ip: string, once: boolean) {
-    let newIps: UnAuthorizedIpResponse[];
+    let newIps: IpResponse[];
 
     if (unAuthorizedIps) {
-      let ipToRemove: UnAuthorizedIpResponse = {
+      let ipToRemove: IpResponse = {
         IpAddress: ip,
+        Authorized: false,
+        OneTimeUse: false,
       };
       let indexToRemove = unAuthorizedIps.findIndex(
         (i) => i.IpAddress === ipToRemove.IpAddress

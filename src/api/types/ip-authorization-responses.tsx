@@ -1,16 +1,10 @@
-export interface AuthorizedIpResponseWrapper {
-  IpAddresses: AuthorizedIpResponse[];
-}
-
-export interface AuthorizedIpResponse {
+export interface IpResponse {
   IpAddress: string;
+  Authorized: boolean;
   OneTimeUse: boolean;
 }
 
-export interface UnAuthorizedIpResponseWrapper {
-  IpAddresses: UnAuthorizedIpResponse[];
-}
-
-export interface UnAuthorizedIpResponse {
-  IpAddress: string;
+export interface IpWrapper {
+  IpAddresses: IpResponse[];
+  Count: number;
 }
